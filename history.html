@@ -14,43 +14,81 @@
 </head>
 
 <body>
- 
+ <section>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="index.html">Diário</a>
+        <a class="navbar-brand" href="index.html">Dailylight</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#textoNavbar" aria-controls="textoNavbar" aria-expanded="false" aria-label="Alterna navegação">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="textoNavbar">
           <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+              <a class="nav-link" href="index.html">Home <span class="sr-only">(Página atual)</span></a>
+            </li>
             <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(Página atual)</span></a>
+              <a class="nav-link" href="history.html">Registros</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="history.html">History</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="media.html">Media</a>
+            <li class="nav-item ">
+              <a class="nav-link" href="media.html">Média</a>
             </li>
           </ul>
           </nav>
+          <div class="d-none d-lg-block">
+          <a style="float:right;" href="https://github.com/you"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_white_ffffff.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+          </div>
     
-    <h1>History</h1>
+  <section class="title">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-sm-8 col-md-6">
+            <h1>Registros</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+    
 
-<section>
-        <table>
-                <thead>
-                    <th id="ordenaCodigo">Código</th>
-                    <th id="ordenaData">Data</th>
-                    <th>Descrição</th>
-                    <th>Nota</th>
-                </thead>
-                <tbody id="tela"></tbody>
-            </table>
+<section id="tela" class="m-b-50">
+  
 </section>
 
-
-
-
+<section>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"> 
+  <div class="modal-dialog modal-dialog-centered" role="document"> 
+    <div class="modal-content"> 
+      <div class="modal-header"> 
+        <h5 class="modal-title" id="exampleModalLongTitle">Editando</h5> 
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> 
+          <span aria-hidden="true">&times;</span> 
+        </button>
+      </div>
+      <div class="modal-body"> 
+        <form>
+          <div class="form-group"> 
+            <label for="editar-descricao">Registro</label> 
+            <textarea class="form-control" id="registroInput" rows="5"></textarea>
+          </div>
+        </form>
+        <div class="form-group">
+          <form>
+            <div>
+              <div class="rate">
+                <div class="emoji"></div>
+                <input id="emojiHistory" name="inlineRadioOptions" type="range" min="0" max="4" step="1">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer"> 
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> 
+          <button type="submit" id="excluirRegistro" class="btn btn-danger" data-dismiss="modal">Excluir</button> 
+          <button type="submit" id="submitRegistro" class="btn btn-primary">Save changes</button> 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
 
 
 

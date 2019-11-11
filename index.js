@@ -28,70 +28,40 @@ function desenhaDiario(ordem) {
   // Desenha a tabela
   let tela = "";
   let nota = 0;
+  let collapse = 0;
+  let show = 0;
+  let heading = 0;
+  let heading1 = 0;
   diario.forEach(d => {
     // saldo += l.nota;
     nota += d.nota;
     data = new Date(d.data);
     tela +=
-      "<tr>" +
-      "<td>" +
-      data.getDate() +
-      "/" +
-      (data.getMonth() + 1) +
-      "/" +
-      data.getFullYear() +
-      "</td>" +
-      "<td>" +
-      d.descricao +
-      "</td>" +
-      "<td>" +
-      '<div class="emojiHistory">' + emojis[d.nota-1]+ '</div>' +
-      "</td>" +
-      "<br>" +
-      // Passa o código da td para o id do botão
-      "<td>" +
-      "<button" +
-      (d.codigo != null
-        ? ' id="' +
-          d.codigo +
-          '"' +
-          ' class="editar btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter"'
-        : "") +
-      'type="submit">Editar</button>' +
-      '<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">' +
-      '<div class="modal-dialog modal-dialog-centered" role="document">' +
-      ' <div class="modal-content">' +
-      '<div class="modal-header">' +
-      '<h5 class="modal-title" id="exampleModalLongTitle">Editando</h5>' +
-      '<button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
-      '<span aria-hidden="true">&times;</span>' +
-      "</button>" +
-      "</div>" +
-      '<div class="modal-body">' +
-      "<form>" +
-      '<div class="form-group">' +
-      '<label for="editar-descricao">Descrição</label>' +
-      '<input type="text" class="form-control" id="descricaoInput" placeholder="">' +
-      "</div>" +
-      '<div class="form-group">'+
-      '<form>'+
-      '<div>'+
-      '<div class="rate">'+
-      '<div class="emoji"></div>'+
-      '<input id="emojiHistory" name="inlineRadioOptions" type="range" min="0" max="4" step="1">'+
-      '</div>'+
-      "</div>" +
-      "</form>" +
-      '<div class="modal-footer">' +
-      '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>' +
-      '<button type="submit" id="excluirRegistro" class="btn btn-danger" data-dismiss="modal">Excluir</button>' +
-      '<button type="submit" id="submitRegistro" class="btn btn-primary">Save changes</button>' +
-      "</div>" +
-      "</div>" +
-      "</div>" +
-      "</div>" +
-      "</td>" +
-      "</tr>";
+    '<div class="container">'+
+    '<div class="row justify-content-center">'+
+    '<div class="col-sm-8 col-md-6">'+
+    '<div class="accordion" id="accordionExample">'+
+    '<div class="card">'+
+    '<div class="card-header" id="heading'+heading++ + '"'+
+    '<h2 class="mb-0">'+
+    '<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse'+collapse++ + '"' + 'aria-expanded="true" aria-controls="collapseOne">'+
+    data.getDate()+"/" +(data.getMonth() + 1)+"/" +data.getFullYear() +' '+
+    emojis[d.nota-1]+
+    '</button>'+
+    '</h2>'+
+    '</div>'+
+    '<div id="collapse'+show++ +'"' + 'class="collapse" aria-labelledby="heading'+heading1++ + '"' +'data-parent="#accordionExample">'+
+    '<div class="card-body">'+
+    d.descricao+
+    '<div class="editarButton text-center m-t-10">'+
+    "<button" + (d.codigo != null? ' id="' + d.codigo + '"' + ' class="editar btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter"': "") +
+    'type="submit">Editar</button>'+
+    '</div>'+
+    '</div>'+
+    '</div>'+
+    '</div>'+
+    '</div>'+
+    '</div>';
   });
   $("#tela").html(tela);
 }
@@ -103,7 +73,16 @@ function desenhaMedia() {
     nota += d.nota;
     })
     let media = parseInt(nota/diario.length);
-    let emoji = '<div class="emoji">' + emojis[media]+ '</div>'; 
+    let emoji = '<div class="emoji">' + 
+    '<div class="container">' +
+    '<div class="row justify-content-center">'+
+    '<div class="col-sm-8 col-md-6 text-center">'+
+    emojis[media]+ 
+    '</div>'+
+    '</div>'+
+    '</div>'+
+    '</div>';
+
     $("#media").html(emoji);
     };
 
@@ -122,14 +101,14 @@ $(document).ready(() => {
           codigo: proximoCodigo(),
           data: data,
           descricao:
-            "Hoje o meu dia foi bom. Eu e a minha mãe conversamos e comemos juntos. Agora à noite estou realizando um trabalho da pós graduação.",
+            "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
           nota: 5
         }
       ];
       localStorage.setItem("diario", JSON.stringify(diario));
     }
   }
-  salvaDiario();
+
 
   // Configuração dos botões
   $("#ordenaCodigo").click(() => {
@@ -172,19 +151,19 @@ $(document).ready(() => {
     });
 
     // passa os notaes atuais para os placeholders dos inputs
-    $("#descricaoInput").attr("placeholder", thisDescricao);
-    $("#notaInput").attr("placeholder", thisNota);
+    // $("#registroInput").attr("placeholder", thisDescricao);
+    // $("#notaInput").attr("placeholder", thisNota);
 
     // envia o lancamento editado
     $("#submitRegistro").click(e => {
       e.preventDefault();
       // pega os novos notaes,
-      let descricaoInput = $("#descricaoInput").val();
-      let notaInput = parseInt($("input").val()) +1;
-      console.log(notaInput);
+      let registroInput = $("#registroInput").val();
+      let notaInput =  parseInt($("#emojiHistory").val()) +1;
+
       // se estiverem vazios, mantém o nota atual, se não, passa o nota digitado
-      descricaoInput
-        ? (thisList[thisCodigo]["descricao"] = descricaoInput)
+      registroInput
+        ? (thisList[thisCodigo]["descricao"] = registroInput)
         : (thisList[thisCodigo]["descricao"] = thisDescricao);
       notaInput
         ? (thisList[thisCodigo]["nota"] = notaInput)
